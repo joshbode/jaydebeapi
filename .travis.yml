@@ -33,7 +33,11 @@ install:
   - pip install -r test-requirements.txt
   - jip install org.xerial:sqlite-jdbc:3.7.2
   - jip install org.hsqldb:hsqldb:1.8.0.10
+  - pip install coveralls
 
 script:
   - export CLASSPATH=$VIRTUAL_ENV/javalib/*
-  - python test/testsuite.py $TESTNAME
+  - coverage run --source jaydebeapi test/testsuite.py $TESTNAME
+
+after_success:
+  coveralls
